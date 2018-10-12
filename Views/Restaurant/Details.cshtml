@@ -1,0 +1,15 @@
+﻿@model Restaurant
+
+@{ 
+    ViewBag.Title = Model.Name;
+}
+
+<h1>@Model.Name</h1>
+<div class="info">
+    Id: @Model.Id
+</div>
+<div class="info">
+    Cuisine: @Model.Cuisine
+</div>
+
+<a asp-action="Index" asp-controller="Restaurant">Home</a>

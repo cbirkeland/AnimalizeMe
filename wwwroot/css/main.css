@@ -1,0 +1,28 @@
+﻿body {
+    font-family: Arial;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.restaurant {
+    padding: 10px;
+    display: block;
+    margin: 10px;
+    border: 5px solid #b9b9b9;
+    border-radius: 22px;
+}
+
+input,select,.info,button {
+    display: block;
+    margin: 10px 0;
+}
+
+a {
+    color: #1014b1;
+}
+
+.special {
+    background-color: #ffdf9b;
+    padding: 10px;
+    margin: 10px;
+}

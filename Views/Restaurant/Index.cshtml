@@ -1,0 +1,28 @@
+﻿@model AnimalizeMe.ViewModels.RestaurantIndexViewModel
+
+@{
+    ViewBag.Title = "Home page";
+}
+
+<h1>All Restaurants</h1>
+
+@foreach (var restaurant in Model.Restaurants)
+{
+    @Html.Partial("_Summary", restaurant)
+}
+
+<div class="special">
+    @Model.Hello
+</div>
+
+<div class="special">
+    @Model.SomeCountMessage
+</div>
+
+<div class="special">
+    @Model.SomethingFromGoogle
+</div>
+
+<div>
+    <a asp-action="Create">Add Restaurant</a>
+</div>
