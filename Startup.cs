@@ -40,17 +40,17 @@ namespace AnimalizeMe
 
             // Registera dina tjänster
 
-            services.AddSingleton<IGreeter, Greeter>();
-            services.AddScoped<IRestaurantService, RestaurantService>();
+            //services.AddSingleton<IGreeter, Greeter>();
+            //services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IHttpService, HttpService>();
             services.AddDbContext<AnimalizeMeDbContext>(
                 options => options.UseSqlServer(_configuration.GetConnectionString("AnimalizeMe")));
-            services.AddScoped<IRestaurantData, SqlRestaurantData>();
+            //services.AddScoped<IRestaurantData, SqlRestaurantData>();
             //services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
             services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IGreeter greeter, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,  ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {               

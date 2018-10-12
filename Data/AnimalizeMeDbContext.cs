@@ -11,6 +11,11 @@ namespace AnimalizeMe.Data
 
         }
 
-        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Creature> Creatures { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CreatureTags>().HasKey(x => new { x.TagId, x.CreatureId });
+        }
     }
 }
