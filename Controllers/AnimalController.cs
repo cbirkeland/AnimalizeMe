@@ -34,34 +34,16 @@ namespace AnimalizeMe.Controllers
 		//[HttpPost]  // add creature to database POST
        // public IActionResult Add([FromBody]Creature creature)
 
-        public IActionResult Add()
+        
+        public async void AddTagsToDatabase()
         {
-			var imageList = new List<string>();
-			DirectoryInfo images = new DirectoryInfo("Images");//Assuming Test is your Folder
-			FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
-			
-			foreach (FileInfo file in Files)
-			{
-                //			image = image + ", " + file.Name;
-                //		imageList.Add(image);
+            //var c = new Creature();
 
 
-
-                // Anropa API'et
-
-                var c = new Creature();
-
-
-                _context.Creatures.Add(c);
-
-
-            }
-
-
-			return View("Index", imageList);
-			//string[] tags1 = All.Description.tags;
-			//creature.CreatureTags.Add(All.Description.tags)
-		}
+            //_context.Creatures.Add(c);
+            
+        }
+      
 
 
 

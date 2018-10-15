@@ -84,5 +84,23 @@ namespace AnimalizeMe.Services
             BinaryReader binaryReader = new BinaryReader(fileStream);
             return binaryReader.ReadBytes((int)fileStream.Length); 
         }
+        public async void GetTagsFromAPI()
+        {
+
+            DirectoryInfo images = new DirectoryInfo("Images");//Assuming Test is your Folder
+            FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
+
+            foreach (FileInfo file in Files)
+            {
+
+                // Anropa API'et
+
+
+            }
+
+            //string[] tags1 = All.Description.tags;
+            //creature.CreatureTags.Add(All.Description.tags)
+        }
+
     }
 }
