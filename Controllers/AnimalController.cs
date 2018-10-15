@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AnimalizeMe.Data;
+using AnimalizeMe.Models;
+using AnimalizeMe.Models.AnalyzerModel;
 using AnimalizeMe.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +13,17 @@ namespace AnimalizeMe.Controllers
 {
     public class AnimalController : Controller
     {
+		private readonly AnimalizeMeDbContext _context;
+
+		public AnimalController(AnimalizeMeDbContext context)
+		{
+			_context = context;
+		}
+
 		AnimalService _animalService;
 		public AnimalController()
 		{
-            _animalService = new AnimalService(); // "277e278c4d8c4a9402a60952299fe6cb", "9a5dff4f681b2b1c01f6019a2ad112469aec3af3eed58699cc7dc30a18ab6da3");
+            _animalService = new AnimalService(); 
 
 
 		}
@@ -23,6 +34,28 @@ namespace AnimalizeMe.Controllers
             var result = await _animalService.MakeAnalysisRequest(@"C:\Users\Administrator\Desktop\AnimalizeMe\Bilder\bowtie.jpg");
             return View("Index", result);
         }
+
+		[HttpPost]  // add creature to database POST
+        public IActionResult Add([FromBody]Creature creature)
+        {
+			var imageList = new List<string>();
+			DirectoryInfo images = new DirectoryInfo("Images");//Assuming Test is your Folder
+			FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
+			string image = "";
+			foreach (FileInfo file in Files)
+			{
+				image = image + ", " + file.Name;
+				imageList.Add(image);
+
+			}
+
+
+			return View("Index", imageList);
+			//string[] tags1 = All.Description.tags;
+			//creature.CreatureTags.Add(All.Description.tags)
+		}
+
+
 
         //public async Task<IActionResult> Board(string id)
         //{
