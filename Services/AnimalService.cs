@@ -11,7 +11,7 @@ namespace AnimalizeMe.Services
     public class AnimalService
     {
         
-		const string uriBase = "https://northeurope.api.cognitive.microsoft.com/";
+		const string uriBase = "https://northeurope.api.cognitive.microsoft.com/vision/v2.0/analyze";
         const string skey = "8445137c95d04e56a84c72a21f5ee696";
 
 
