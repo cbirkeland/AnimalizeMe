@@ -18,36 +18,44 @@ namespace AnimalizeMe.Controllers
 		public AnimalController(AnimalizeMeDbContext context)
 		{
 			_context = context;
-		}
+            _animalService = new AnimalService();
+        }
 
 		AnimalService _animalService;
-		public AnimalController()
-		{
-            _animalService = new AnimalService(); 
-
-
-		}
+	
 
         public async Task<IActionResult> Index()
         {
 
-            var result = await _animalService.MakeAnalysisRequest(@"C:\Users\Administrator\Desktop\AnimalizeMe\Bilder\bowtie.jpg");
+            var result = await _animalService.MakeAnalysisRequest(@"C:\Project\AcceleratedLearning\Slutprojekt\Images\bowtie.jpg");
             return View("Index", result);
         }
 
-		[HttpPost]  // add creature to database POST
-        public IActionResult Add([FromBody]Creature creature)
+		//[HttpPost]  // add creature to database POST
+       // public IActionResult Add([FromBody]Creature creature)
+
+        public IActionResult Add()
         {
 			var imageList = new List<string>();
 			DirectoryInfo images = new DirectoryInfo("Images");//Assuming Test is your Folder
 			FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
-			string image = "";
+			
 			foreach (FileInfo file in Files)
 			{
-				image = image + ", " + file.Name;
-				imageList.Add(image);
+                //			image = image + ", " + file.Name;
+                //		imageList.Add(image);
 
-			}
+
+
+                // Anropa API'et
+
+                var c = new Creature();
+
+
+                _context.Creatures.Add(c);
+
+
+            }
 
 
 			return View("Index", imageList);

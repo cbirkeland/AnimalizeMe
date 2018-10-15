@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnimalizeMe.Models
 {
-    public class Creature : All
+    public class Creature 
     {
         public int Id { get; set; }
 
