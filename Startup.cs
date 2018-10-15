@@ -42,7 +42,7 @@ namespace AnimalizeMe
 
             //services.AddSingleton<IGreeter, Greeter>();
             //services.AddScoped<IRestaurantService, RestaurantService>();
-            services.AddScoped<IHttpService, HttpService>();
+ 
             services.AddDbContext<AnimalizeMeDbContext>(
                 options => options.UseSqlServer(_configuration.GetConnectionString("AnimalizeMe")));
             //services.AddScoped<IRestaurantData, SqlRestaurantData>();
