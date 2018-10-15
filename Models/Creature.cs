@@ -12,6 +12,7 @@ namespace AnimalizeMe.Models
 
         public Type Type { get; set; }
         public List<CreatureTags> CreatureTags { get; set; }
+        public string ImagePath { get; set; }
 
 
     }
