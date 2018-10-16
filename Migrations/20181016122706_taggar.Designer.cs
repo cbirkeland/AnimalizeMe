@@ -11,9 +11,10 @@ using System;
 namespace AnimalizeMe.Migrations
 {
     [DbContext(typeof(AnimalizeMeDbContext))]
-    partial class AnimalizeMeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181016122706_taggar")]
+    partial class taggar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +55,7 @@ namespace AnimalizeMe.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tag");
                 });
 
             modelBuilder.Entity("AnimalizeMe.Models.CreatureTags", b =>

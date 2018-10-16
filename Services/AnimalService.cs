@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AnimalizeMe.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace AnimalizeMe.Services
 {
-    public class AnimalService
-    {
-        
+	public class AnimalService
+	{
+
 		const string uriBase = "https://northeurope.api.cognitive.microsoft.com/vision/v2.0/analyze";
-        const string skey = "8445137c95d04e56a84c72a21f5ee696";
+		const string skey = "8445137c95d04e56a84c72a21f5ee696";
 
 
 
 
-        
+
 
 		//public AnimalService(string devkey, string token)
 		//{
@@ -49,59 +50,66 @@ namespace AnimalizeMe.Services
 		//	//postmetod utifrån id, name 
 		//}
 
-        public async Task<string> MakeAnalysisRequest(string imageFilePath)
-        {
-            HttpClient client = new HttpClient();
+		public async Task<Models.AnalyzerModel.All.Rootobject> MakeAnalysisRequest(string imageFilePath)
+		{
+			HttpClient client = new HttpClient();
 
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", skey);
+			client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", skey);
 
-            string requestParameters = "visualFeatures=Categories,Description,Color&language=en";
-            string uri = uriBase + "?" + requestParameters;
+			string requestParameters = "visualFeatures=Categories,Description,Color&language=en";
+			string uri = uriBase + "?" + requestParameters;
 
-            HttpResponseMessage response = null;
-            byte[] byteDara = GetImageAsByteArray(imageFilePath);
+			HttpResponseMessage response = null;
+			byte[] byteDara = GetImageAsByteArray(imageFilePath);
 
-            using (ByteArrayContent content = new ByteArrayContent(byteDara))
-            {
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-                response = await client.PostAsync(uri, content);
-                string contentstring = await response.Content.ReadAsStringAsync();
-
-                //Console.WriteLine("\nResponse:\n");
-                //Console.WriteLione(JsonPrettyPrint(contentstring));
-                return contentstring;                        
-            }            
-        }
-
-        private static byte[] GetImageAsByteArray(string imageFilePath)
-        {
-            FileStream fileStream = new FileStream(imageFilePath, FileMode.Open, FileAccess.Read);
-            BinaryReader binaryReader = new BinaryReader(fileStream);
-            return binaryReader.ReadBytes((int)fileStream.Length); 
-        }
-     //   public async void GetTagsFromAPI()
-      //  {
-
-       //     DirectoryInfo images = new DirectoryInfo("Images");//Assuming Test is your Folder
-       //     FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
-
-       //     foreach (FileInfo file in Files)
-         //   {
-                //kom åt path, kör api metoden
-                // Anropa API'et
-               // MakeAnalysisRequest(file);
-
-                //spara ner pathway, 
-
-                
+			using (ByteArrayContent content = new ByteArrayContent(byteDara))
+			{
+				content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+				response = await client.PostAsync(uri, content);
+				string contentstring = await response.Content.ReadAsStringAsync();
 
 
+				var newString = JsonConvert.DeserializeObject<Models.AnalyzerModel.All.Rootobject>(contentstring);
+				//Console.WriteLine("\nResponse:\n");
+				//Console.WriteLione(JsonPrettyPrint(contentstring));
+				return newString;
+			}
+		}
 
-          //  }
+		private static byte[] GetImageAsByteArray(string imageFilePath)
+		{
+			FileStream fileStream = new FileStream(imageFilePath, FileMode.Open, FileAccess.Read);
+			BinaryReader binaryReader = new BinaryReader(fileStream);
+			return binaryReader.ReadBytes((int)fileStream.Length);
+		}
+		public List<string> GetTagsFromAPI()
+		{
 
-            //string[] tags1 = All.Description.tags;
-            //creature.CreatureTags.Add(All.Description.tags)
-       // }
+			DirectoryInfo images = new DirectoryInfo("Images");//Assuming Test is your Folder
+			FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
+			var fileList = new List<string>();
 
-    }
+			foreach (FileInfo file in Files)
+			{
+				//var c = new Creature();
+				string ImagePath = @"C:\Users\Administrator\Desktop\AnimalizeMe\Images\" + file.Name;
+
+				////    kom åt path, kör api metoden
+				////     Anropa API'et
+				//var api = MakeAnalysisRequest(ImagePath).ToString();
+
+
+				fileList.Add(ImagePath);
+
+			}
+
+			return fileList;
+			//  }
+
+			//string[] tags1 = All.Description.tags;
+			//creature.CreatureTags.Add(All.Description.tags)
+			// }
+
+		}
+	}
 }

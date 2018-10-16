@@ -1,5 +1,8 @@
-﻿@model  string
+﻿@model  List<string>
 
 <h1>Hej nu har vi en sida!</h1>
+@foreach(var x in Model)
+{
+	<p>@x</p>
 
-@Model
+}

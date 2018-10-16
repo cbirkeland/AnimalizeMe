@@ -12,8 +12,11 @@ namespace AnimalizeMe.Data
         }
 
         public DbSet<Creature> Creatures { get; set; }
+		public DbSet<Tag> Tags { get; set; }
+	
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CreatureTags>().HasKey(x => new { x.TagId, x.CreatureId });
         }
