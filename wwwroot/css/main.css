@@ -26,3 +26,13 @@ a {
     padding: 10px;
     margin: 10px;
 }
+
+/*CSS för Uploadknappen*/
+img {
+    max-width: 180px;
+}
+
+input[type=file] {
+    padding: 10px;
+    background: #ffd800;
+}
