@@ -1,0 +1,24 @@
+﻿
+
+<head>
+    <meta charset="utf-8" />
+    <title>Var är vi</title>
+
+    <link href="~/css/main.css" rel="stylesheet" />
+
+
+</head>
+<h1>Uploadsidan</h1>
+<img src="~/Images/bowtie.jpg" />
+
+<form method="post" enctype="multipart/form-data" asp-action="UploadFile">
+    <input type="file" name="files" />
+    <input type="submit" value="Upload" />
+</form>
+
+@*https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-2.1*@
+
+@*<input type='file' onchange="readURL(this);" />
+    <img id="blah" src="http://placehold.it/180" alt="your image" />*@
+
+
