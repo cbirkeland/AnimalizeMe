@@ -27,7 +27,7 @@ namespace AnimalizeMe.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var result = await _animalService.MakeAnalysisRequest(@"C:\Project\AcceleratedLearning\Slutprojekt\Images\bowtie.jpg");
+            var result = await _animalService.MakeAnalysisRequest(@"C:\Project\AnimaliseMe\Images\Dogonbike.jpg");
             return View("Index", result);
         }
 
@@ -35,14 +35,14 @@ namespace AnimalizeMe.Controllers
        // public IActionResult Add([FromBody]Creature creature)
 
         
-        public async void AddTagsToDatabase()
-        {
+        //public async void AddTagsToDatabase()//få in info från api, )
+       // {
             //var c = new Creature();
 
 
             //_context.Creatures.Add(c);
             
-        }
+       // }
       
 
 

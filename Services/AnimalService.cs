@@ -69,13 +69,8 @@ namespace AnimalizeMe.Services
 
                 //Console.WriteLine("\nResponse:\n");
                 //Console.WriteLione(JsonPrettyPrint(contentstring));
-                return contentstring;
-                
-            
-            }
-
-
-            
+                return contentstring;                        
+            }            
         }
 
         private static byte[] GetImageAsByteArray(string imageFilePath)
@@ -84,23 +79,29 @@ namespace AnimalizeMe.Services
             BinaryReader binaryReader = new BinaryReader(fileStream);
             return binaryReader.ReadBytes((int)fileStream.Length); 
         }
-        public async void GetTagsFromAPI()
-        {
+     //   public async void GetTagsFromAPI()
+      //  {
 
-            DirectoryInfo images = new DirectoryInfo("Images");//Assuming Test is your Folder
-            FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
+       //     DirectoryInfo images = new DirectoryInfo("Images");//Assuming Test is your Folder
+       //     FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
 
-            foreach (FileInfo file in Files)
-            {
-
+       //     foreach (FileInfo file in Files)
+         //   {
+                //kom åt path, kör api metoden
                 // Anropa API'et
+               // MakeAnalysisRequest(file);
+
+                //spara ner pathway, 
+
+                
 
 
-            }
+
+          //  }
 
             //string[] tags1 = All.Description.tags;
             //creature.CreatureTags.Add(All.Description.tags)
-        }
+       // }
 
     }
 }
