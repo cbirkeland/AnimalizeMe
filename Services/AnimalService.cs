@@ -42,7 +42,41 @@ namespace AnimalizeMe.Services
 			}
 		}
 
-		private static byte[] GetImageAsByteArray(string imageFilePath)
+        public class AnimalUrlWithScore
+        {
+            public string AnimalUrl { get; set; }
+            public int Score { get; set; }
+        }
+
+
+        internal string GetAnimalUrlThatMathcesTags(string[] tags)
+        {
+            var list = new List<AnimalUrlWithScore>();
+
+
+            // Hämta alla djur med taggar från databasen
+
+            // Ett djur i taget => kolla hur många taggar som djuret matchar med "tags"
+
+            list.Add(new AnimalUrlWithScore
+            {
+                AnimalUrl = "cat1.jpg",
+                Score = 3
+            });
+
+
+            list.Add(new AnimalUrlWithScore
+            {
+                AnimalUrl = "dog34536.jpg",
+                Score = 2
+            });
+
+            var bestAnimal = list.OrderByDescending(x => x.Score).FirstOrDefault();
+
+            return bestAnimal.AnimalUrl;
+        }
+
+        private static byte[] GetImageAsByteArray(string imageFilePath)
 		{
 			FileStream fileStream = new FileStream(imageFilePath, FileMode.Open, FileAccess.Read);
 			BinaryReader binaryReader = new BinaryReader(fileStream);

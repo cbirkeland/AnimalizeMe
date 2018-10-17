@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AnimalizeMe.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,26 +20,29 @@ namespace AnimalizeMe.Controllers
         [HttpPost("UploadFile")]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            
-
             // full path to file in temp location
             var filePath = System.IO.Path.GetTempFileName();
 
+            if (file.Length <= 0)
+                throw new Exception("Filen är tom!");
 
-
-            if (file.Length > 0)
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
+
+                await file.CopyToAsync(stream);
             }
 
+            var x = new AnimalService();
+
+            var svar = await x.MakeAnalysisRequest(filePath);
+
+
+            string url = x.GetAnimalUrlThatMathcesTags(svar.description.tags);
 
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
 
-            return Ok();
+            return Ok(url);
             //return Ok(new { count = files.Count, size, filePath });
         }
     }
