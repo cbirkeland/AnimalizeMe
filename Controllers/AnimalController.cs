@@ -21,15 +21,13 @@ namespace AnimalizeMe.Controllers
 	public class AnimalController : Controller
 	{
 		private readonly AnimalizeMeDbContext _context;
+		private readonly AnimalService _animalService;
 
-		public AnimalController(AnimalizeMeDbContext context)
+		public AnimalController(AnimalizeMeDbContext context, AnimalService animalService)
 		{
 			_context = context;
-			_animalService = new AnimalService();
+			_animalService = animalService;
 		}
-
-		AnimalService _animalService;
-
 
 		public async Task<IActionResult> Index()
 		{

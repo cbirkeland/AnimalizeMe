@@ -1,4 +1,5 @@
-﻿using AnimalizeMe.Models;
+﻿using AnimalizeMe.Data;
+using AnimalizeMe.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,12 @@ namespace AnimalizeMe.Services
 {
 	public class AnimalService
 	{
+		private readonly AnimalizeMeDbContext _context;
+
+		public AnimalService(AnimalizeMeDbContext context)
+		{
+			_context = context;
+		}
 
 		const string uriBase = "https://northeurope.api.cognitive.microsoft.com/vision/v2.0/analyze";
 		const string skey = "8445137c95d04e56a84c72a21f5ee696";
@@ -52,24 +59,28 @@ namespace AnimalizeMe.Services
         internal string GetAnimalUrlThatMathcesTags(string[] tags)
         {
             var list = new List<AnimalUrlWithScore>();
+			// Hämta alla djur med taggar från databasen
 
+			// Ett djur i taget => kolla hur många taggar som djuret matchar med "tags"
+			foreach (var  creature in _context.Creatures)
+			{
+				int score = 0;
+				foreach (var tag in creature.CreatureTags)
+				{
+					if(tags.Contains(tag.Tag.Name))
+					{
+						score++;
+					}
+				}
 
-            // Hämta alla djur med taggar från databasen
+				list.Add(new AnimalUrlWithScore
+				{
+					AnimalUrl = creature.ImagePath,
+					Score = score
+				});
 
-            // Ett djur i taget => kolla hur många taggar som djuret matchar med "tags"
-
-            list.Add(new AnimalUrlWithScore
-            {
-                AnimalUrl = "cat1.jpg",
-                Score = 3
-            });
-
-
-            list.Add(new AnimalUrlWithScore
-            {
-                AnimalUrl = "dog34536.jpg",
-                Score = 2
-            });
+			}
+          
 
             var bestAnimal = list.OrderByDescending(x => x.Score).FirstOrDefault();
 

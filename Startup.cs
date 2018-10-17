@@ -47,6 +47,8 @@ namespace AnimalizeMe
                 options => options.UseSqlServer(_configuration.GetConnectionString("AnimalizeMe")));
             //services.AddScoped<IRestaurantData, SqlRestaurantData>();
             //services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
+            services.AddScoped<AnimalService, AnimalService>();
+
             services.AddMvc();
         }
 
