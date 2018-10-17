@@ -12,6 +12,12 @@ using static AnimalizeMe.Models.AnalyzerModel.All;
 
 namespace AnimalizeMe.Controllers
 {
+
+	public class ImageWithData
+	{
+		public Rootobject Result { get; set; }
+		public string Url { get; set; }
+	}
 	public class AnimalController : Controller
 	{
 		private readonly AnimalizeMeDbContext _context;
@@ -28,36 +34,72 @@ namespace AnimalizeMe.Controllers
 		public async Task<IActionResult> Index()
 		{
 
-			var list = _animalService.GetTagsFromAPI();
-			var resultList = new List<Rootobject>();
-			foreach (var item in list)
+			var imageWithDataList = new List<ImageWithData>();
+
+			List<string> urlList = _animalService.GetTagsFromAPI();
+
+			List<string> tagNames = new List<string>();
+
+			// Bygg upp "imageWithDataList" + en lista med alla nya taggar
+
+			foreach (var url in urlList)
 			{
-				var result = await _animalService.MakeAnalysisRequest(item);
-				resultList.Add(result);
-			}
+				Rootobject result = await _animalService.MakeAnalysisRequest(url);
 
-			var tags = resultList.Select(x => x.description.tags);
-
-			foreach (var item in tags)
-			{
-				
-
-				foreach (var item2 in item)
+				imageWithDataList.Add(new ImageWithData
 				{
-					var tag = new Tag();
-					tag.Name = item2;
-					if (!_context.Tags.Any(x => x.Name == item2))
+					Result = result,
+					Url = url
+				});
+
+				foreach(string tag in result.description.tags)
+				{
+					if (!tagNames.Contains(tag))
 					{
-						_context.Add(tag);
-						_context.SaveChanges();
+						tagNames.Add(tag);
 					}
-				
-					
 				}
-			
-				
 			}
-			
+
+			// Skapa unika taggar
+
+			foreach (var t in tagNames)
+			{
+				var tag = new Tag();
+				tag.Name = t;
+				if (!_context.Tags.Any(x => x.Name == t))
+				{
+					_context.Add(tag);
+					_context.SaveChanges();
+				}
+			}
+
+			// Sparar creatures med tillhörande bildlänk
+
+			foreach (var url in urlList)
+			{
+				if (!_context.Creatures.Any(x => x.ImagePath == url))
+				{
+					var creature = new Creature();
+
+					creature.ImagePath = url;
+
+					var result = imageWithDataList.Single(x => x.Url == url).Result;
+
+					List<CreatureTags> creatureTags = new List<CreatureTags>();
+					foreach (string t in result.description.tags)
+					{
+						Tag ttt = _context.Tags.Single(x => x.Name == t);
+						
+						creatureTags.Add(new CreatureTags { Tag = ttt });
+					}
+
+					creature.CreatureTags = creatureTags;
+					_context.Add(creature);
+					_context.SaveChanges();
+				}
+			}
+
 			return Ok();
 		}
 
