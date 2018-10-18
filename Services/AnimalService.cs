@@ -46,7 +46,6 @@ namespace AnimalizeMe.Services
 				response = await client.PostAsync(uri, content);
 				string contentstring = await response.Content.ReadAsStringAsync();
 
-
 				var newString = JsonConvert.DeserializeObject<Models.AnalyzerModel.All.Rootobject>(contentstring);
 				//Console.WriteLine("\nResponse:\n");
 				//Console.WriteLione(JsonPrettyPrint(contentstring));
