@@ -1,4 +1,5 @@
-﻿using AnimalizeMe.Services;
+﻿using AnimalizeMe.Data;
+using AnimalizeMe.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,6 +16,14 @@ namespace AnimalizeMe.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        private readonly AnimalizeMeDbContext _context;
+        private readonly AnimalService _animalService;
+
+        public UploadController(AnimalizeMeDbContext context, AnimalService animalService)
+        {
+            _context = context;
+            _animalService = animalService;
         }
 
         [HttpPost("UploadFile")]

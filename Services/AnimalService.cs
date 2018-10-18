@@ -19,7 +19,11 @@ namespace AnimalizeMe.Services
 			_context = context;
 		}
 
-		const string uriBase = "https://northeurope.api.cognitive.microsoft.com/vision/v2.0/analyze";
+        public AnimalService()
+        {
+        }
+
+        const string uriBase = "https://northeurope.api.cognitive.microsoft.com/vision/v2.0/analyze";
 		const string skey = "8445137c95d04e56a84c72a21f5ee696";
 
 
