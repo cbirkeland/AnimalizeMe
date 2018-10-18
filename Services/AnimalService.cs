@@ -1,6 +1,7 @@
 ﻿using AnimalizeMe.Data;
 using AnimalizeMe.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,13 @@ namespace AnimalizeMe.Services
 	public class AnimalService
 	{
 		private readonly AnimalizeMeDbContext _context;
+        private readonly IHostingEnvironment _env;
 
-		public AnimalService(AnimalizeMeDbContext context)
+        public AnimalService(AnimalizeMeDbContext context, IHostingEnvironment env)
 		{
 			_context = context;
-		}
+            _env = env;
+        }
 
 
         const string uriBase = "https://northeurope.api.cognitive.microsoft.com/vision/v2.0/analyze";
@@ -102,15 +105,13 @@ namespace AnimalizeMe.Services
 			FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
 			var fileList = new List<string>();
 
-			foreach (FileInfo file in Files)
+           
+            foreach (FileInfo file in Files)
 			{
-			
-				string ImagePath = @"C:\Users\Administrator\Desktop\AnimalizeMe\Images\" + file.Name;
+                //string ImagePath = @"C:\Users\Administrator\Desktop\AnimalizeMe\Images\" + file.Name;
+                string ImagePath = Path.Combine(_env.ContentRootPath, "Images", file.Name);
 
-			
                 fileList.Add(ImagePath);
-
-
 			}
 
 			return fileList;
