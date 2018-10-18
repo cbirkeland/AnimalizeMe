@@ -16,7 +16,14 @@
 
   <ItemGroup>
     <Folder Include="ViewComponents\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="wwwroot\uploadedImages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\book.jpg" />
+    <None Include="wwwroot\Images\bowtie.jpg" />
+    <None Include="wwwroot\Images\flower.jpg" />
+    <None Include="wwwroot\Images\glassesAndCoat.jpg" />
   </ItemGroup>
   
 </Project>

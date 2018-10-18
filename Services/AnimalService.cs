@@ -92,16 +92,17 @@ namespace AnimalizeMe.Services
             return bestAnimal.AnimalUrl;
         }
 
-        private static byte[] GetImageAsByteArray(string imageFilePath)
+        private byte[] GetImageAsByteArray(string name)
 		{
-			FileStream fileStream = new FileStream(imageFilePath, FileMode.Open, FileAccess.Read);
+            var imageFile = Path.Combine(_env.WebRootPath, "Images", name);
+            FileStream fileStream = new FileStream(imageFile, FileMode.Open, FileAccess.Read);
 			BinaryReader binaryReader = new BinaryReader(fileStream);
 			return binaryReader.ReadBytes((int)fileStream.Length);
 		}
 		public List<string> GetTagsFromAPI()
 		{
-
-			DirectoryInfo images = new DirectoryInfo("Images");//Assuming Test is your Folder
+            var imagePath = Path.Combine(_env.WebRootPath, "Images");
+			DirectoryInfo images = new DirectoryInfo(imagePath);//Assuming Test is your Folder
 			FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
 			var fileList = new List<string>();
 
@@ -109,7 +110,7 @@ namespace AnimalizeMe.Services
             foreach (FileInfo file in Files)
 			{
                 //string ImagePath = @"C:\Users\Administrator\Desktop\AnimalizeMe\Images\" + file.Name;
-                string ImagePath = Path.Combine(_env.ContentRootPath, "Images", file.Name);
+                string ImagePath = file.Name; // Path.Combine(_env.ContentRootPath, "Images", file.Name);
 
                 fileList.Add(ImagePath);
 			}

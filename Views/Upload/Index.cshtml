@@ -1,4 +1,5 @@
 ﻿
+@model AnimalizeMe.ViewModels.UploadViewModel
 <head>
     <meta charset="utf-8" />
     <title>Uploadsidan</title>
@@ -11,10 +12,11 @@
 <img src="~/DesignImages/logo1.JPG" />
 
 <form method="post" enctype="multipart/form-data" asp-action="UploadFile">
-    <input type='file' name='file'onchange="readURL(this);"/>
+    <input type='file' name='file' onchange="readURL(this);" />
 
     <input type="submit" value="Upload" />
-    <img id="blah" src="http://placehold.it/180" alt="your image" />
+    <img id="blah" src="@Model.UploadedImage" alt="your image" />
+    <img id="match" src="/images/@Model.AnimalImange" alt="match image" />
 </form>
 
 

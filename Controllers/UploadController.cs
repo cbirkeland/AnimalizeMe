@@ -1,5 +1,6 @@
 ﻿using AnimalizeMe.Data;
 using AnimalizeMe.Services;
+using AnimalizeMe.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,7 +16,10 @@ namespace AnimalizeMe.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(new UploadViewModel
+            {
+                UploadedImage= "http://placehold.it/180"
+            });
         }
         private readonly AnimalService _animalService;
 
@@ -29,7 +33,7 @@ namespace AnimalizeMe.Controllers
         {
             // full path to file in temp location
             var filePath = System.IO.Path.GetTempFileName();
-
+            
             if (file.Length <= 0)
                 throw new Exception("Filen är tom!");
 
@@ -47,7 +51,11 @@ namespace AnimalizeMe.Controllers
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
 
-            return Ok(url);
+            return View("Index", new UploadViewModel {
+                AnimalImange = url,
+                UploadedImage = filePath
+           
+            });
             //return Ok(new { count = files.Count, size, filePath });
         }
     }
