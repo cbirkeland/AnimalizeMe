@@ -17,13 +17,11 @@ namespace AnimalizeMe.Controllers
         {
             return View();
         }
-        private readonly AnimalizeMeDbContext _context;
         private readonly AnimalService _animalService;
 
-        public UploadController(AnimalizeMeDbContext context, AnimalService animalService)
+        public UploadController(AnimalService animalService)
         {
-            _context = context;
-            _animalService = animalService;
+              _animalService = animalService;
         }
 
         [HttpPost("UploadFile")]
@@ -41,12 +39,10 @@ namespace AnimalizeMe.Controllers
                 await file.CopyToAsync(stream);
             }
 
-            var x = new AnimalService();
-
-            var svar = await x.MakeAnalysisRequest(filePath);
+            var svar = await _animalService.MakeAnalysisRequest(filePath);
 
 
-            string url = x.GetAnimalUrlThatMathcesTags(svar.description.tags);
+            string url = _animalService.GetAnimalUrlThatMathcesTags(svar.description.tags);
 
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.

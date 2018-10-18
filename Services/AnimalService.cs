@@ -1,5 +1,6 @@
 ﻿using AnimalizeMe.Data;
 using AnimalizeMe.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,6 @@ namespace AnimalizeMe.Services
 			_context = context;
 		}
 
-        public AnimalService()
-        {
-        }
 
         const string uriBase = "https://northeurope.api.cognitive.microsoft.com/vision/v2.0/analyze";
 		const string skey = "8445137c95d04e56a84c72a21f5ee696";
@@ -66,7 +64,7 @@ namespace AnimalizeMe.Services
 			// Hämta alla djur med taggar från databasen
 
 			// Ett djur i taget => kolla hur många taggar som djuret matchar med "tags"
-			foreach (var  creature in _context.Creatures)
+			foreach (var  creature in _context.Creatures.Include(x=>x.CreatureTags).ThenInclude(x=>x.Tag))
 			{
 				int score = 0;
 				foreach (var tag in creature.CreatureTags)
