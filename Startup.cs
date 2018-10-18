@@ -54,6 +54,7 @@ namespace AnimalizeMe
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,  ILogger<Startup> logger)
         {
+
             if (env.IsDevelopment())
             {               
                 app.UseDeveloperExceptionPage();
