@@ -1,6 +1,7 @@
 ﻿using AnimalizeMe.Data;
 using AnimalizeMe.Services;
 using AnimalizeMe.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,6 +15,14 @@ namespace AnimalizeMe.Controllers
 {
     public class UploadController : Controller
     {
+        private readonly AnimalService _animalService;
+        private readonly IHostingEnvironment _env;
+
+        public UploadController(AnimalService animalService, IHostingEnvironment env)
+        {
+            _animalService = animalService;
+            _env = env;
+        }
         public IActionResult Index()
         {
             return View(new UploadViewModel
@@ -21,29 +30,27 @@ namespace AnimalizeMe.Controllers
                 UploadedImage= "http://placehold.it/180"
             });
         }
-        private readonly AnimalService _animalService;
 
-        public UploadController(AnimalService animalService)
-        {
-              _animalService = animalService;
-        }
 
         [HttpPost("UploadFile")]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            // full path to file in temp location
-            var filePath = System.IO.Path.GetTempFileName();
-            
-            if (file.Length <= 0)
-                throw new Exception("Filen är tom!");
+            var fileName = Guid.NewGuid().ToString()+".jpg";
+            var fileNameWithPath = Path.Combine(_env.WebRootPath, "uploadedImages", fileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            // full path to file in temp location
+            //var filePath = System.IO.Path.GetTempFileName();
+            
+            //if (file.Length <= 0)
+            //    throw new Exception("Filen är tom!");
+
+            using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
             {
 
                 await file.CopyToAsync(stream);
             }
 
-            var svar = await _animalService.MakeAnalysisRequest(filePath);
+            var svar = await _animalService.MakeAnalysisRequest(fileNameWithPath);
 
 
             string url = _animalService.GetAnimalUrlThatMathcesTags(svar.description.tags);
@@ -52,9 +59,9 @@ namespace AnimalizeMe.Controllers
             // Don't rely on or trust the FileName property without validation.
 
             return View("Index", new UploadViewModel {
-                AnimalImange = url,
-                UploadedImage = filePath
-           
+                AnimalImage = url,
+                UploadedImage = fileName
+
             });
             //return Ok(new { count = files.Count, size, filePath });
         }
