@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnimalizeMe\AnimalizeMe.csproj" />
-    <ProjectReference Include="..\Slutprojekt\AnimalizeMe.csproj" />
   </ItemGroup>
 
 </Project>
