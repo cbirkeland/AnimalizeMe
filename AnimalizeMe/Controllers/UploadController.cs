@@ -32,7 +32,7 @@ namespace AnimalizeMe.Controllers
         {
             return View(new UploadViewModel
             {
-                UploadedImage= "http://placehold.it/180"
+                UploadedImage= ""
             });
         }
 
