@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalizeMe", "AnimalizeMe.csproj", "{D39E09D2-6641-406F-A9F3-D866A8BCC469}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalizeMe.Test", "..\AnimalizeMe.Test\AnimalizeMe.Test.csproj", "{9708CB0E-2CA8-4E9D-BDD8-9DEE27602C83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D39E09D2-6641-406F-A9F3-D866A8BCC469}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D39E09D2-6641-406F-A9F3-D866A8BCC469}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D39E09D2-6641-406F-A9F3-D866A8BCC469}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9708CB0E-2CA8-4E9D-BDD8-9DEE27602C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9708CB0E-2CA8-4E9D-BDD8-9DEE27602C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9708CB0E-2CA8-4E9D-BDD8-9DEE27602C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9708CB0E-2CA8-4E9D-BDD8-9DEE27602C83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
