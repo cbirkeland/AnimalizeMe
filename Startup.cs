@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using AnimalizeMe.Repository;
 
 namespace AnimalizeMe
 {
@@ -48,6 +49,7 @@ namespace AnimalizeMe
             //services.AddScoped<IRestaurantData, SqlRestaurantData>();
             //services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
             services.AddScoped<AnimalService, AnimalService>();
+            services.AddScoped<IAnimalRepository, AnimalRepository>();
 
             services.AddMvc();
         }

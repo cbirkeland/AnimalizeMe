@@ -9,17 +9,16 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AnimalizeMe.Repository;
 
 namespace AnimalizeMe.Services
 {
 	public class AnimalService
 	{
-		private readonly AnimalizeMeDbContext _context;
         private readonly IHostingEnvironment _env;
 
-        public AnimalService(AnimalizeMeDbContext context, IHostingEnvironment env)
+        public AnimalService(IHostingEnvironment env)
 		{
-			_context = context;
             _env = env;
         }
 
@@ -59,14 +58,17 @@ namespace AnimalizeMe.Services
             public int Score { get; set; }
         }
 
+        // 
 
-        internal string GetAnimalUrlThatMathcesTags(string[] tags)
+
+
+        public string GetAnimalUrlThatMathcesTags(string[] tags, List<Creature> allCreatures)
         {
             var list = new List<AnimalUrlWithScore>();
 			// Hämta alla djur med taggar från databasen
 
 			// Ett djur i taget => kolla hur många taggar som djuret matchar med "tags"
-			foreach (var  creature in _context.Creatures.Include(x=>x.CreatureTags).ThenInclude(x=>x.Tag))
+			foreach (var  creature in allCreatures)
 			{
 				int score = 0;
 				foreach (var tag in creature.CreatureTags)
@@ -86,9 +88,9 @@ namespace AnimalizeMe.Services
 			}
           
 
-            var bestAnimal = list.OrderByDescending(x => x.Score).FirstOrDefault();
+            var bestAnimal = list.Where(x=>x.Score>0).OrderByDescending(x => x.Score).FirstOrDefault();
 
-            return bestAnimal.AnimalUrl;
+            return bestAnimal?.AnimalUrl;
         }
 
         private byte[] GetImageAsByteArray(string name)

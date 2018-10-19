@@ -1,4 +1,5 @@
 ﻿using AnimalizeMe.Data;
+using AnimalizeMe.Repository;
 using AnimalizeMe.Services;
 using AnimalizeMe.ViewModels;
 using Microsoft.AspNetCore.Hosting;
@@ -18,11 +19,15 @@ namespace AnimalizeMe.Controllers
         private readonly AnimalService _animalService;
         private readonly IHostingEnvironment _env;
 
-        public UploadController(AnimalService animalService, IHostingEnvironment env)
+        public UploadController(AnimalService animalService, IHostingEnvironment env, IAnimalRepository repo)
         {
             _animalService = animalService;
             _env = env;
+            _repo = repo;
         }
+
+        public IAnimalRepository _repo;
+
         public IActionResult Index()
         {
             return View(new UploadViewModel
@@ -53,7 +58,7 @@ namespace AnimalizeMe.Controllers
             var svar = await _animalService.MakeAnalysisRequest(fileNameWithPath);
 
 
-            string url = _animalService.GetAnimalUrlThatMathcesTags(svar.description.tags);
+            string url = _animalService.GetAnimalUrlThatMathcesTags(svar.description.tags, _repo.GetAllCreatures());
 
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
