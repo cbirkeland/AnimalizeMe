@@ -18,25 +18,25 @@ input,select,.info,button {
 }
 
 a {
-    color: #1014b1;
+    color: white;
 }
 
 .special {
-    background-color: #ffdf9b;
+    background-color: white;
     padding: 10px;
     margin: 10px;
 }
 
 /*CSS för Uploadknappen*/
 img {
-    max-width: 180px;
+    width: 300px;
 }
 
 input[type=file] {
     padding: 10px;
-    background: #ffd800;
+    background: white;
 }
 
 #blah{
-    width:180px;
+    width:300px;
 }

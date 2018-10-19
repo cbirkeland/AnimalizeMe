@@ -9,15 +9,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
  
-<img src="~/DesignImages/logo1.JPG" />
+<div class="container">
+    <div class="col"></div>
+    <div class="col-12" align="center">
+        
+        <img src="~/DesignImages/penguinlogo.png" />
 
-<form method="post" enctype="multipart/form-data" asp-action="UploadFile">
-    <input type='file' name='file' onchange="readURL(this);" />
+        <form method="post" enctype="multipart/form-data" asp-action="UploadFile">
+            <input type='file' name='file' onchange="readURL(this);" />
+            <p></p>
 
-    <input type="submit" value="Upload" />
-    <img id="blah" src="/uploadedImages/@Model.UploadedImage" alt="your image" />
-    <img id="match" src="/images/@Model.AnimalImage" alt="match image" />
-</form>
+            <input type="submit" value="Upload" />
+            <p></p>
+            <img id="blah" src="/uploadedImages/@Model.UploadedImage" alt="your image" />
+            <img id="match" src="/images/@Model.AnimalImage" alt="match image" />
+        </form>
+    </div>
+    <div class="col"></div>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
