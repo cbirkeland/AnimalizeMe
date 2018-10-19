@@ -2,6 +2,7 @@
     font-family: Arial;
     padding: 10px;
     font-size: 14px;
+    background-image: url('../designimages/pawsbackground.jpg');
 }
 
 .restaurant {
@@ -11,6 +12,7 @@
     border: 5px solid #b9b9b9;
     border-radius: 22px;
 }
+
 
 input,select,.info,button {
     display: block;
@@ -39,4 +41,11 @@ input[type=file] {
 
 #blah{
     width:300px;
+}
+.col-12 {
+    background: white;
+    border-color: #ff6a00;
+    height: 100%;
+    border-left: solid 1px;
+    border-right: solid 1px;
 }
