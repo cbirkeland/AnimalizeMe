@@ -5,6 +5,7 @@ using AnimalizeMe.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,61 +15,85 @@ using System.Threading.Tasks;
 
 namespace AnimalizeMe.Controllers
 {
-    public class UploadController : Controller
-    {
-        private readonly AnimalService _animalService;
-        private readonly IHostingEnvironment _env;
+	public class UploadController : Controller
+	{
+		private readonly AnimalService _animalService;
+		private readonly IHostingEnvironment _env;
 
-        public UploadController(AnimalService animalService, IHostingEnvironment env, IAnimalRepository repo)
-        {
-            _animalService = animalService;
-            _env = env;
-            _repo = repo;
-        }
+		public UploadController(AnimalService animalService, IHostingEnvironment env, IAnimalRepository repo)
+		{
+			_animalService = animalService;
+			_env = env;
+			_repo = repo;
+		}
 
-        public IAnimalRepository _repo;
+		public IAnimalRepository _repo;
 
-        public IActionResult Index()
-        {
-            return View(new UploadViewModel
-            {
-                UploadedImage= "http://placehold.it/180"
-            });
-        }
+		public IActionResult Index()
+		{
 
+			return View(new UploadViewModel
+			{
+				UploadedImage = "http://placehold.it/180"
+			});
 
-        [HttpPost("UploadFile")]
-        public async Task<IActionResult> UploadFile(IFormFile file)
-        {
-            var fileName = Guid.NewGuid().ToString()+".jpg";
-            var fileNameWithPath = Path.Combine(_env.WebRootPath, "uploadedImages", fileName);
-
-            // full path to file in temp location
-            //var filePath = System.IO.Path.GetTempFileName();
-            
-            //if (file.Length <= 0)
-            //    throw new Exception("Filen är tom!");
-
-            using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
-            {
-
-                await file.CopyToAsync(stream);
-            }
-
-            var svar = await _animalService.MakeAnalysisRequest(fileNameWithPath);
+		}
 
 
-            string url = _animalService.GetAnimalUrlThatMathcesTags(svar.description.tags, _repo.GetAllCreatures());
+		[HttpPost("UploadFile")]
+		public async Task<IActionResult> UploadFile(UploadViewModel vm)
+		{
+			if (vm.file == null)
+			{
+				ModelState.AddModelError("FileError", "Please select an image file");
+				return View("Index", vm);
+			}
 
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
+			if (!vm.file.FileName.EndsWith(".jpg"))
+			{
+				ModelState.AddModelError("FileError", "Wrong file format. Please select an .jpg image file");
+				return View("Index", vm);
+			}
 
-            return View("Index", new UploadViewModel {
-                AnimalImage = url,
-                UploadedImage = fileName
 
-            });
-            //return Ok(new { count = files.Count, size, filePath });
-        }
-    }
+
+			var fileName = Guid.NewGuid().ToString() + ".jpg";
+
+
+
+
+
+			var fileNameWithPath = Path.Combine(_env.WebRootPath, "uploadedImages", fileName);
+
+
+
+			// full path to file in temp location
+			//var filePath = System.IO.Path.GetTempFileName();
+
+			//if (file.Length <= 0)
+			//    throw new Exception("Filen är tom!");
+
+			using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+			{
+
+				await vm.file.CopyToAsync(stream);
+			}
+
+			var svar = await _animalService.MakeAnalysisRequest(fileNameWithPath);
+
+
+			string url = _animalService.GetAnimalUrlThatMathcesTags(svar.description.tags, _repo.GetAllCreatures());
+
+			// process uploaded files
+			// Don't rely on or trust the FileName property without validation.
+
+			return View("Index", new UploadViewModel
+			{
+				AnimalImage = url,
+				UploadedImage = fileName
+
+			});
+			//return Ok(new { count = files.Count, size, filePath });
+		}
+	}
 }
