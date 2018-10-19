@@ -29,15 +29,13 @@ namespace AnimalizeMe.Controllers
 
 		public IAnimalRepository _repo;
 
-		public IActionResult Index()
-		{
-
-			return View(new UploadViewModel
-			{
-				UploadedImage = "http://placehold.it/180"
-			});
-
-		}
+        public IActionResult Index()
+        {
+            return View(new UploadViewModel
+            {
+                UploadedImage= ""
+            });
+        }
 
 
 		[HttpPost("UploadFile")]

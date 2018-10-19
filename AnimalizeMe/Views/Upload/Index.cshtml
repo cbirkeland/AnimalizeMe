@@ -9,11 +9,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
- 
+@{ 
+
+    var animalStyle = "";
+    if (string.IsNullOrWhiteSpace(Model.AnimalImage))
+    {
+        animalStyle = "visibility:hidden";
+    }
+    var uploadedImage = "";
+    if (string.IsNullOrWhiteSpace(Model.UploadedImage))
+    {
+        uploadedImage = "visibility:hidden";
+    }
+}
 <div class="container">
     <div class="col"></div>
     <div class="col-12" align="center">
-        
+
         <div class="logo">
             <img src="~/DesignImages/penguinlogo.png" />
         </div>
@@ -22,15 +34,12 @@
             <input type='file' class="btn btn-warning" name='file' onchange="readURL(this);" />
             <p></p>
 
-            <input type="submit" class="btn btn-warning" value="Matcha" />
+            <input type="submit" onclick="myFunction()" class="btn btn-warning" value="Matcha" />
             <p></p>
-            <img id="blah" src="/uploadedImages/@Model.UploadedImage" alt="your image" />
-            <img id="match" src="/images/@Model.AnimalImage" alt="match image" />
-
-			Valideringsfel:
-			<div asp-validation-summary="All">
-
-			</div>
+            <div id="myDIV">
+                <img id="blah" src="/uploadedImages/@Model.UploadedImage" style="@uploadedImage" alt="your image" />
+                <img id="match" src="/images/@Model.AnimalImage" style="@animalStyle" alt="match image" />
+            </div>
         </form>
     </div>
     <div class="col"></div>
