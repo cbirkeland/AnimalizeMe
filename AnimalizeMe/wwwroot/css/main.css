@@ -2,7 +2,7 @@
     font-family: Arial;
     padding: 10px;
     font-size: 14px;
-    background-image: url('../designimages/pawsbackground.jpg');
+    background-image: url('../designimages/gradingbackground.png');
 }
 
 .restaurant {
@@ -14,9 +14,16 @@
 }
 
 
+
+
 input,select,.info,button {
     display: block;
     margin: 10px 0;
+}
+
+.myDIV {
+    width: 100%;
+    height: auto;
 }
 
 a {
@@ -32,15 +39,28 @@ a {
 /*CSS för Uploadknappen*/
 img {
     width: 300px;
+    height: auto;
+}
+
+.logo img {
+    height: 422px;
+    width: 600px;
+    padding-bottom: 40px;
+    padding-top: 1px;
+    max-width: 100%;
+    height: auto;
 }
 
 input[type=file] {
     padding: 10px;
     background: white;
+    height: auto;
+    width: auto;
 }
 
 #blah{
     width:300px;
+    height: auto;
 }
 .col-12 {
     background: white;
