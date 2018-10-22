@@ -47,7 +47,7 @@ namespace AnimalizeMe.Controllers
 				return View("Index", vm);
 			}
 
-			if (!vm.file.FileName.EndsWith(".jpg"))
+			if (!vm.file.FileName.ToUpper().EndsWith(".jpg"))
 			{
 				ModelState.AddModelError("FileError", "Wrong file format. Please select an .jpg image file");
 				return View("Index", vm);
