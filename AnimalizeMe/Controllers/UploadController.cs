@@ -44,7 +44,8 @@ namespace AnimalizeMe.Controllers
 			if (vm.file == null)
 			{
 				ModelState.AddModelError("FileError", "Please select an image file");
-				return View("Index", vm);
+				
+                return View("Index", vm);
 			}
 
 			if (!vm.file.FileName.ToLower().EndsWith(".jpg"))

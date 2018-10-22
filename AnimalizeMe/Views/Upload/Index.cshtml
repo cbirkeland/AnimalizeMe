@@ -33,13 +33,13 @@
         <div class="logo">
             <img src="~/DesignImages/penguinlogocropped.png" />
         </div>
-        
+
         <form method="post" enctype="multipart/form-data" asp-action="UploadFile">
             <input type='file' class="btn btn-warning" name='file' onchange="readURL(this);" />
             <p></p>
-            <div id="validering" style="color: red;">
-                <div asp-validation-summary="All"></div>
-            </div>
+
+            <div id="validering" asp-validation-summary="All"></div>
+
 
             <input type="submit" onclick="myFunction()" class="btn btn-warning" value="Matcha" />
             <p></p>

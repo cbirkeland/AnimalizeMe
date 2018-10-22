@@ -5,7 +5,11 @@
     background-image: url('../designimages/gradingbackground.png');
 }
 
-
+#validering li  {
+    color: red;
+    list-style: none;
+    
+}
 
 
 
