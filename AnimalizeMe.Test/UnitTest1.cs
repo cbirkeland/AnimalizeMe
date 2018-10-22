@@ -34,7 +34,7 @@ namespace AnimalizeMe.Test
                 }
             };
 
-            string matchingAnimal = x.GetAnimalUrlThatMathcesTags(new []{ "book" }, creatues);
+            string matchingAnimal = x.GetAnimalUrlThatMatchesTags(new []{ "book" }, creatues);
 
             Assert.AreEqual("book.jpg", matchingAnimal);
         }
@@ -64,7 +64,7 @@ namespace AnimalizeMe.Test
                 }
             };
 
-            string matchingAnimal = x.GetAnimalUrlThatMathcesTags(new string[] { }, creatues);
+            string matchingAnimal = x.GetAnimalUrlThatMatchesTags(new string[] { }, creatues);
 
             Assert.AreEqual(null, matchingAnimal);
         }

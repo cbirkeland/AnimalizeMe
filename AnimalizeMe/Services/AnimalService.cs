@@ -24,7 +24,7 @@ namespace AnimalizeMe.Services
 
 
         const string uriBase = "https://northeurope.api.cognitive.microsoft.com/vision/v2.0/analyze";
-		const string skey = "8445137c95d04e56a84c72a21f5ee696";
+		const string skey = "f5b58443d57248b9a51d8210df3a4e30";
 
 
 		public async Task<Models.AnalyzerModel.All.Rootobject> MakeAnalysisRequest(string imageFilePath)
@@ -62,12 +62,12 @@ namespace AnimalizeMe.Services
 
 
 
-        public string GetAnimalUrlThatMathcesTags(string[] tags, List<Creature> allCreatures)
+        public string GetAnimalUrlThatMatchesTags(string[] tags, List<Creature> allCreatures)
         {
             var list = new List<AnimalUrlWithScore>();
-			// Hämta alla djur med taggar från databasen
 
-			// Ett djur i taget => kolla hur många taggar som djuret matchar med "tags"
+            // Hämta alla djur med taggar från databasen
+            //Ett djur i taget => kolla hur många taggar som djuret matchar med "tags"
 			foreach (var  creature in allCreatures)
 			{
 				int score = 0;
@@ -84,10 +84,8 @@ namespace AnimalizeMe.Services
 					AnimalUrl = creature.ImagePath,
 					Score = score
 				});
-
 			}
           
-
             var bestAnimal = list.Where(x=>x.Score>0).OrderByDescending(x => x.Score).FirstOrDefault();
 
             return bestAnimal?.AnimalUrl;

@@ -57,14 +57,8 @@ namespace AnimalizeMe.Controllers
 
 
 			var fileName = Guid.NewGuid().ToString() + ".jpg";
-
-
-
-
-
+            
 			var fileNameWithPath = Path.Combine(_env.WebRootPath, "uploadedImages", fileName);
-
-
 
 			// full path to file in temp location
 			//var filePath = System.IO.Path.GetTempFileName();
@@ -81,7 +75,7 @@ namespace AnimalizeMe.Controllers
 			var svar = await _animalService.MakeAnalysisRequest(fileNameWithPath);
 
 
-			string url = _animalService.GetAnimalUrlThatMathcesTags(svar.description.tags, _repo.GetAllCreatures());
+			string url = _animalService.GetAnimalUrlThatMatchesTags(svar.description.tags, _repo.GetAllCreatures());
 
 			// process uploaded files
 			// Don't rely on or trust the FileName property without validation.
