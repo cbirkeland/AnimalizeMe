@@ -7,9 +7,13 @@
     <link href="~/css/main.css" rel="stylesheet" />
     <script src="~/js/main.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="icon"
+          type="image/jpg"
+          href="~/DesignImages/logoonlypenguin.JPG" />
+
 </head>
 
-@{ 
+@{
 
     var animalStyle = "";
     if (string.IsNullOrWhiteSpace(Model.AnimalImage))
@@ -27,7 +31,7 @@
     <div class="col-12" align="center">
 
         <div class="logo">
-            <img src="~/DesignImages/penguinlogo.png" />
+            <img src="~/DesignImages/penguinlogocropped.png" />
         </div>
 
         <form method="post" enctype="multipart/form-data" asp-action="UploadFile">
@@ -40,8 +44,8 @@
                 <img id="blah" src="/uploadedImages/@Model.UploadedImage" style="@uploadedImage" alt="your image" />
                 <img id="match" src="/images/@Model.AnimalImage" style="@animalStyle" alt="match image" />
 
-				Valideringstext
-				<div asp-validation-summary="All"></div>
+                Valideringstext
+                <div asp-validation-summary="All"></div>
             </div>
         </form>
     </div>

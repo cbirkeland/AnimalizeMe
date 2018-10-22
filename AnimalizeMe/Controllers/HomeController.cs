@@ -11,7 +11,7 @@ namespace AnimalizeMe.Controllers
     {
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Animal");
+            return RedirectToAction("Index", "Upload");
         }
     }
 }
