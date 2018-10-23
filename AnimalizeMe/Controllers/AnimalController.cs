@@ -91,9 +91,9 @@ namespace AnimalizeMe.Controllers
                         foreach (string t in result.description.tags)
                         {
                            
-                            Tag ttt = _context.Tags.Single(x => x.Name.ToLower() == t.ToLower());
-                            ttt.Name = ttt.Name.ToLower();
-                            creatureTags.Add(new CreatureTags { Tag = ttt });
+                            Tag oneTag = _context.Tags.Single(x => x.Name.ToLower() == t.ToLower());
+                            oneTag.Name = oneTag.Name.ToLower();
+                            creatureTags.Add(new CreatureTags { Tag = oneTag });
                         }
 
                         creature.CreatureTags = creatureTags;

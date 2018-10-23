@@ -1,13 +1,13 @@
 ﻿function readURL(input) {
 
 
-    document.getElementById("blah").style.visibility="visible";
+    document.getElementById("userImage").style.visibility="visible";
 
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         
         reader.onload = function (e) {
-            $('#blah')
+            $('#userImage')
                 .attr('src', e.target.result);
         };
 
@@ -15,8 +15,8 @@
     }
 }
 
-function myFunction() {
-    var x = document.getElementById("myDIV");
+function visibleImage() {
+    var x = document.getElementById("imageDIV");
     
         x.style.display = "block";
     

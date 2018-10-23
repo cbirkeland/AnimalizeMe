@@ -19,7 +19,7 @@ input,select,.info,button {
     margin: 10px 0;
 }
 
-.myDIV {
+.imageDIV {
     width: 100%;
     height: auto;
     
@@ -61,7 +61,7 @@ input[type=file] {
 
 
 
-#blah {
+#userImage {
     width: auto;
     height: 300px;
     max-width: 400px;

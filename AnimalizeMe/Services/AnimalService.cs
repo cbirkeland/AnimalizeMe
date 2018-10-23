@@ -37,9 +37,9 @@ namespace AnimalizeMe.Services
 			string uri = uriBase + "?" + requestParameters;
 
 			HttpResponseMessage response = null;
-			byte[] byteDara = GetImageAsByteArray(imageFilePath);
+			byte[] byteData = GetImageAsByteArray(imageFilePath);
 
-			using (ByteArrayContent content = new ByteArrayContent(byteDara))
+			using (ByteArrayContent content = new ByteArrayContent(byteData))
 			{
 				content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
 				response = await client.PostAsync(uri, content);

@@ -38,21 +38,22 @@
             <input type='file' class="btn btn-warning" name='file' onchange="readURL(this);" />
             <p></p>
 
+            @*Valideringstext*@
             <div id="validering" asp-validation-summary="All" style="padding-bottom: 25px;"></div>
 
 
-            <input type="submit" onclick="myFunction()" class="btn btn-warning" value="Animalyze Me!" />
-            <p style="padding-bottom:25px;"></p>  
-            
-            
-            <div id="myDIV">
-                <img id="blah" src="/uploadedImages/@Model.UploadedImage" style="@uploadedImage" alt="your image" />
+            <input type="submit" onclick="visibleImage()" class="btn btn-warning" value="Animalyze Me!" />
+            <p style="padding-bottom:25px;"></p>
+
+
+            <div id="imageDIV">
+                <img id="userImage" src="/uploadedImages/@Model.UploadedImage" style="@uploadedImage" alt="your image" />
                 <img id="match" src="/images/@Model.AnimalImage" style="@animalStyle" alt="match image" />
 
-                @*Valideringstext*@
+
 
             </div>
-           
+
         </form>
     </div>
     <div class="col"></div>
@@ -66,12 +67,12 @@
 @*<form method="post" enctype="multipart/form-data" asp-action="UploadFile">
         <input type="file" name="files" />
         <input type="submit" value="Upload" />
-        <img id="blah" src="http://placehold.it/180" alt="your image" />
+        <img id="userImage" src="http://placehold.it/180" alt="your image" />
     </form>*@
 
 @*https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-2.1*@
 
 @*<input type='file' onchange="readURL(this);" />
-    <img id="blah" src="http://placehold.it/180" alt="your image" />*@
+    <img id="userImage" src="http://placehold.it/180" alt="your image" />*@
 
 
