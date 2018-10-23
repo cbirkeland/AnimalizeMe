@@ -31,74 +31,83 @@ namespace AnimalizeMe.Controllers
 
 		public async Task<IActionResult> Index()
 		{
+            try
+            {
 
-			var imageWithDataList = new List<ImageWithData>();
 
-			List<string> urlList = _animalService.GetTagsFromAPI();
+                var imageWithDataList = new List<ImageWithData>();
 
-			List<string> tagNames = new List<string>();
+                List<string> urlList = _animalService.GetTagsFromAPI();
 
-			// Bygg upp "imageWithDataList" + en lista med alla nya taggar
+                List<string> tagNames = new List<string>();
 
-			foreach (var url in urlList)
-			{
-				Rootobject result = await _animalService.MakeAnalysisRequest(url);
+                // Bygg upp "imageWithDataList" + en lista med alla nya taggar
 
-				imageWithDataList.Add(new ImageWithData
-				{
-					Result = result,
-					Url = url
-				});
+                foreach (var url in urlList)
+                {
+                    Rootobject result = await _animalService.MakeAnalysisRequest(url);
 
-				foreach(string tag in result.description.tags)
-				{
-					if (!tagNames.Contains(tag))
-					{
-						tagNames.Add(tag);
-					}
-				}
-			}
+                    imageWithDataList.Add(new ImageWithData
+                    {
+                        Result = result,
+                        Url = url.ToLower()
+                    });
 
-			// Skapa unika taggar
+                    foreach (string tag in result.description.tags)
+                    {
+                        if (!tagNames.Contains(tag.ToLower()))
+                        {
+                            tagNames.Add(tag.ToLower());
+                        }
+                    }
+                }
 
-			foreach (var t in tagNames)
-			{
-				var tag = new Tag();
-				tag.Name = t;
-				if (!_context.Tags.Any(x => x.Name == t))
-				{
-					_context.Add(tag);
-					_context.SaveChanges();
-				}
-			}
+                // Skapa unika taggar
 
-			// Sparar creatures med tillhörande bildlänk
+                foreach (var t in tagNames)
+                {
+                    var tag = new Tag();
+                    tag.Name = t;
+                    if (!_context.Tags.Any(x => x.Name == t))
+                    {
+                        _context.Add(tag);
+                        _context.SaveChanges();
+                    }
+                }
 
-			foreach (var url in urlList)
-			{
-				if (!_context.Creatures.Any(x => x.ImagePath == url))
-				{
-					var creature = new Creature();
+                // Sparar creatures med tillhörande bildlänk
 
-					creature.ImagePath = url;
+                foreach (var url in urlList)
+                {
+                    if (!_context.Creatures.Any(x => x.ImagePath.ToLower() == url.ToLower()))
+                    {
+                        var creature = new Creature();
 
-					var result = imageWithDataList.Single(x => x.Url == url).Result;
+                        creature.ImagePath = url;
 
-					List<CreatureTags> creatureTags = new List<CreatureTags>();
-					foreach (string t in result.description.tags)
-					{
-						Tag ttt = _context.Tags.Single(x => x.Name == t);
-						
-						creatureTags.Add(new CreatureTags { Tag = ttt });
-					}
+                        var result = imageWithDataList.Single(x => x.Url.ToLower() == url.ToLower()).Result;
 
-					creature.CreatureTags = creatureTags;
-					_context.Add(creature);
-					_context.SaveChanges();
-				}
-			}
+                        List<CreatureTags> creatureTags = new List<CreatureTags>();
+                        foreach (string t in result.description.tags)
+                        {
+                           
+                            Tag ttt = _context.Tags.Single(x => x.Name.ToLower() == t.ToLower());
+                            ttt.Name = ttt.Name.ToLower();
+                            creatureTags.Add(new CreatureTags { Tag = ttt });
+                        }
 
-			return Ok();
+                        creature.CreatureTags = creatureTags;
+                        _context.Add(creature);
+                        _context.SaveChanges();
+                    }
+                }
+
+
+                return Ok();
+            } catch (Exception ex)
+            {
+                return Ok(ex); // "Fel " + ex?.Message + ex?.InnerException?.Message  + ex?.StackTrace);
+            } 
 		}
 
 
