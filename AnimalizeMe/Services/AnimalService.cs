@@ -46,8 +46,7 @@ namespace AnimalizeMe.Services
 				string contentstring = await response.Content.ReadAsStringAsync();
 
 				var newString = JsonConvert.DeserializeObject<Models.AnalyzerModel.All.Rootobject>(contentstring);
-				//Console.WriteLine("\nResponse:\n");
-				//Console.WriteLione(JsonPrettyPrint(contentstring));
+				
 				return newString;
 			}
 		}
@@ -58,7 +57,7 @@ namespace AnimalizeMe.Services
             public int Score { get; set; }
         }
 
-        // 
+         
 
 
 
@@ -98,28 +97,24 @@ namespace AnimalizeMe.Services
 			BinaryReader binaryReader = new BinaryReader(fileStream);
 			return binaryReader.ReadBytes((int)fileStream.Length);
 		}
-		public List<string> GetTagsFromAPI()
+		public List<string> CreatesFileListOfImagePathFromFolder()
 		{
             var imagePath = Path.Combine(_env.WebRootPath, "Images");
-			DirectoryInfo images = new DirectoryInfo(imagePath);//Assuming Test is your Folder
-			FileInfo[] Files = images.GetFiles("*.jpg"); //Getting Text files
+			DirectoryInfo images = new DirectoryInfo(imagePath);
+			FileInfo[] Files = images.GetFiles("*.jpg"); 
 			var fileList = new List<string>();
 
            
             foreach (FileInfo file in Files)
 			{
-                //string ImagePath = @"C:\Users\Administrator\Desktop\AnimalizeMe\Images\" + file.Name;
-                string ImagePath = file.Name; // Path.Combine(_env.ContentRootPath, "Images", file.Name);
+               
+                string ImagePath = file.Name; 
 
                 fileList.Add(ImagePath);
 			}
 
 			return fileList;
-			//  }
-
-			//string[] tags1 = All.Description.tags;
-			//creature.CreatureTags.Add(All.Description.tags)
-			// }
+		
 
 		}
 	}
