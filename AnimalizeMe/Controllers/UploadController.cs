@@ -60,11 +60,7 @@ namespace AnimalizeMe.Controllers
             
 			var fileNameWithPath = Path.Combine(_env.WebRootPath, "uploadedImages", fileName);
 
-			// full path to file in temp location
-			//var filePath = System.IO.Path.GetTempFileName();
-
-			//if (file.Length <= 0)
-			//    throw new Exception("Filen är tom!");
+			
 
 			using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
 			{
@@ -86,7 +82,7 @@ namespace AnimalizeMe.Controllers
 				UploadedImage = fileName
 
 			});
-			//return Ok(new { count = files.Count, size, filePath });
+			
 		}
 	}
 }

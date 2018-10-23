@@ -37,7 +37,7 @@ namespace AnimalizeMe.Controllers
 
                 var imageWithDataList = new List<ImageWithData>();
 
-                List<string> urlList = _animalService.GetTagsFromAPI();
+                List<string> urlList = _animalService.CreatesFileListOfImagePathFromFolder();
 
                 List<string> tagNames = new List<string>();
 
@@ -106,60 +106,10 @@ namespace AnimalizeMe.Controllers
                 return Ok();
             } catch (Exception ex)
             {
-                return Ok(ex); // "Fel " + ex?.Message + ex?.InnerException?.Message  + ex?.StackTrace);
+                return Ok(ex); 
             } 
 		}
 
 
-
-		//[HttpPost]  // add creature to database POST
-		//public IActionResult AddTagsToDatabase(List<string> allTags)
-		//{
-		//	allTags = Index();
-		//	foreach (var item in allTags)
-		//	{
-		//		var tags = new Tag();
-				
-		//		var desc = new Description();
-
-		//		tags.Description.tags = desc.tags;
-		//	}
-			
-			
-  //          return Ok("");
-
-			
-
-
-		//}
-
-
-
-
-		//public async Task<IActionResult> Board(string id)
-		//{
-		//	//return Ok("Du vill se listor för boarden " + id);
-		//	List<TrelloList> result = await _trelloService.GetAllListsForBoard(id);
-		//	return View(result);
-
-		//}
-
-		//public IActionResult AddCardForm(string id)
-		//{
-		//	var vm = new AddTrelloPost
-		//	{
-		//		TrelloListId = id
-		//	};
-
-		//	return View("AddCardForm", vm);
-		//}
-
-		//[HttpPost]
-		//public async Task<IActionResult> AddCardResponse(AddTrelloPost post)
-		//{
-		//    await _animalService.MakeAnalysisRequest(@"C:\Users\Administrator\Desktop\AnimalizeMe\Bilder\bowtie.jpg");
-
-		//    return View("AddCardResponse", post);
-		//}
 	}
 }
