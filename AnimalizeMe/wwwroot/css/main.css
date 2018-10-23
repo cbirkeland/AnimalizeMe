@@ -22,6 +22,7 @@ input,select,.info,button {
 .myDIV {
     width: 100%;
     height: auto;
+    
 }
 
 a {
@@ -55,10 +56,13 @@ input[type=file] {
     background: white;
     height: auto;
     width: auto;
+
 }
 
-#blah{
-    width:auto;
+
+
+#blah {
+    width: auto;
     height: 300px;
     max-width: 400px;
 }
