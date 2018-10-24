@@ -75,7 +75,13 @@ namespace AnimalizeMe.Controllers
 
 			// process uploaded files
 			// Don't rely on or trust the FileName property without validation.
+			if(url == null)
+			{
+				ModelState.AddModelError("FileError", "No match found, please upload another image!");
+				return View("Index", vm);
+			}
 
+			else
 			return View("Index", new UploadViewModel
 			{
 				AnimalImage = url,
